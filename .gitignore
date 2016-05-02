@@ -1,0 +1,7 @@
+node_modules/
+uploads/image/*
+uploads/audio/*
+
+!default.jpg
+!default.mp3
+!.gitignore

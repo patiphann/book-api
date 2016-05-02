@@ -1,0 +1,39 @@
+{
+  "name": "test-shop-api",
+  "version": "1.0.0",
+  "description": "test shop api",
+  "main": "server.js",
+  "scripts": {
+    "start": "gulp",
+    "test": "mocha -R list"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.3.5",
+    "body-parser": "~1.0.1",
+    "bootstrap": "^3.3.6",
+    "connect-multiparty": "^2.0.0",
+    "express": "~4.0.0",
+    "express-jwt": "^3.3.0",
+    "fs-extra": "^0.28.0",
+    "jade": "^1.11.0",
+    "jsonwebtoken": "^5.7.0",
+    "mongoose": "^3.6.13",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.0",
+    "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "stylus": "^0.54.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.12.3",
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "gulp": "^3.9.1",
+    "gulp-develop-server": "^0.5.1",
+    "mocha": "^2.4.5",
+    "supertest": "^1.2.0"
+  }
+}
