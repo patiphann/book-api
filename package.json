@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "gulp",
-    "test": "mocha -R list"
+    "test": "node ./node_modules/mocha/bin/mocha"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",

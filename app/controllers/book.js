@@ -44,7 +44,11 @@ var self = {
           type: 'book'
         };
 
-        filesLib.savePage(objPage, function(resp) {
+        filesLib.savePage(objPage, function(err, resp) {
+          if (err) {
+            res.status(400).json(err);
+          }
+
           if (resp !== true) {
             res.status(500).send('Save page fail!');
           } else {
@@ -74,7 +78,11 @@ var self = {
           type: 'book'
         };
 
-        filesLib.savePage(objPage, function(resp) {
+        filesLib.savePage(objPage, function(err, resp) {
+          if (err) {
+            res.status(400).json(err);
+          }
+
           if (resp !== true) {
             res.status(500).send('Update page fail!');
           } else {
@@ -121,7 +129,11 @@ var self = {
       }
 
       if (docs && docs._id) {
-        filesLib.savePage(objPage, function(resp) {
+        filesLib.savePage(objPage, function(err, resp) {
+          if (err) {
+            res.status(400).json(err);
+          }
+
           if (resp !== true) {
             res.status(500).send('Save page fail!');
           } else {
@@ -144,7 +156,11 @@ var self = {
       type: 'update page'
     };
 
-    filesLib.savePage(objPage, function(resp) {
+    filesLib.savePage(objPage, function(err, resp) {
+      if (err) {
+        res.status(400).json(err);
+      }
+
       if (resp !== true) {
         res.status(500).send('Update page fail!');
       } else {

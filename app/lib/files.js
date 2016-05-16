@@ -11,23 +11,31 @@ var filesLib = {
   savePage: function(obj, callback) {
     var objThis = this;
 
-    objThis.findBook(obj, function(resBook) {
-      objThis.addFilePage(obj, resBook, function(resFile) {
-        callback(resFile);
-      });
+    objThis.findBook(obj, function(error, resBook) {
+      if (error) {
+        callback(error, null);
+      } else {
+        objThis.addFilePage(obj, resBook, function(err, resFile) {
+          if (err) {
+            callback(err, null);
+          }
+
+          callback(null, resFile);
+        });
+      }
     });
   },
   findBook: function(obj, callback) {
     Book.findById(obj._id, function(err, docs) {
       if (err) {
-        callback(false);
+        callback(err, false);
+      } else {
+        callback(null, docs);
       }
-
-      callback(docs);
     });
   },
   addFilePage: function(obj, resBook, callback) {
-  	var objThis = this;
+    var objThis = this;
     var objArray = [];
     var oldFile = {};
     var no = 0;
@@ -103,10 +111,10 @@ var filesLib = {
             Book.findOneAndUpdate({ _id: obj._id }, { pages: objArray, updatedAt: new Date() }, { new: true },
               function(err, docs) {
                 if (err) {
-                  callback(err);
+                  callback(err, null);
+                } else {
+                  callback(null, true);
                 }
-
-                callback(true);
               });
           } else if (obj.type === 'add page') {
             Book.findOneAndUpdate({ _id: obj._id }, {
@@ -120,10 +128,10 @@ var filesLib = {
               }, { new: true },
               function(err, docs) {
                 if (err) {
-                  callback(err);
+                  callback(err, null);
+                } else {
+                  callback(null, true);
                 }
-
-                callback(true);
               });
           } else if (obj.type === 'update page') {
             objArray._id = pageId;
@@ -135,28 +143,28 @@ var filesLib = {
               }, { new: true },
               function(err, docs) {
                 if (err) {
-                  callback(err);
-                }
-
-                Book.findOneAndUpdate({ _id: obj._id }, {
-                    $push: {
-                      pages: {
-                        $each: objArray,
-                        $sort: { no: 1 }
+                  callback(err, null);
+                } else {
+                  Book.findOneAndUpdate({ _id: obj._id }, {
+                      $push: {
+                        pages: {
+                          $each: objArray,
+                          $sort: { no: 1 }
+                        }
+                      },
+                      updatedAt: new Date()
+                    }, { new: true },
+                    function(err, docs) {
+                      if (err) {
+                        callback(err, null);
+                      } else {
+                        callback(null, true);
                       }
-                    },
-                    updatedAt: new Date()
-                  }, { new: true },
-                  function(err, docs) {
-                    if (err) {
-                      callback(err);
-                    }
-
-                    callback(true);
-                  });
+                    });
+                }
               });
           } else {
-            callback(false);
+            callback(null, false);
           }
         }
       });
@@ -164,7 +172,7 @@ var filesLib = {
   },
   createFile: function(obj, callback) {
     if (obj.file && obj.file != '' && obj.file.path) {
-    	var objThis = this;
+      var objThis = this;
 
       if (obj.old) {
         // call function remove file!

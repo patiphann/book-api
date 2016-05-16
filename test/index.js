@@ -2,6 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
+var mocha = require('mocha');
 var mongoose = require('mongoose');
 var config = require('../config/config');
 var request = require('supertest');
@@ -132,11 +133,11 @@ describe('Book API', function() {
       .set('x-access-token', xToken)
       .set('Authorization', authToken)
       .end(function(err, res) {
-      	idBook = res.body[0]._id;
-      	pageId = [
-      		res.body[0].pages[0]._id,
-      		res.body[0].pages[1]._id
-      	];
+        idBook = res.body[0]._id;
+        pageId = [
+          res.body[0].pages[0]._id,
+          res.body[0].pages[1]._id
+        ];
 
         res.should.have.status(200);
         res.should.be.a('object');
@@ -263,7 +264,7 @@ describe('Book API', function() {
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.a('object');
-      	res.body.should.have.property('message');
+        res.body.should.have.property('message');
         res.body.message.should.equal('Page created!');
 
         done();
@@ -300,7 +301,7 @@ describe('Book API', function() {
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.a('object');
-      	res.body.should.have.property('message');
+        res.body.should.have.property('message');
         res.body.message.should.equal('Successfully deleted!');
 
         done();
@@ -316,7 +317,7 @@ describe('Book API', function() {
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.a('object');
-      	res.body.should.have.property('message');
+        res.body.should.have.property('message');
         res.body.message.should.equal('Successfully deleted!');
 
         done();
